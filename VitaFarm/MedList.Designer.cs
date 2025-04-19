@@ -38,6 +38,7 @@
             this.Name = "FormMedList";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MedList";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMedList_FormClosed);
             this.ResumeLayout(false);
 
         }

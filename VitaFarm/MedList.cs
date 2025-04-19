@@ -16,5 +16,10 @@ namespace VitaFarm
         {
             InitializeComponent();
         }
+
+        private void FormMedList_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
