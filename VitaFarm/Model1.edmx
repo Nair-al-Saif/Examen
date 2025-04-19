@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище VitaFarmModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ассортимент">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="int" Nullable="false" />
+          <Property Name="Фотография" Type="image" />
+          <Property Name="Название" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Описание" Type="nvarchar(max)" />
+          <Property Name="Производитель" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Цена" Type="money" Nullable="false" />
+          <Property Name="Измерение" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Количество" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Скидка" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Пользователи">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="int" Nullable="false" />
+          <Property Name="Фамилия" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Имя" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Отчество" Type="nvarchar(max)" />
+          <Property Name="Телефон" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Роль" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ПунктыВыдачи">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="int" Nullable="false" />
+          <Property Name="Название" Type="nvarchar(max)" />
+          <Property Name="Город" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Улица" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Здание" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Роли">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="int" Nullable="false" />
+          <Property Name="Роль" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Состав">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="int" Nullable="false" />
+          <Property Name="Медикомент" Type="int" Nullable="false" />
+          <Property Name="Количество" Type="nvarchar(max)" />
+          <Property Name="Цена" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Талоны">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="int" Nullable="false" />
+          <Property Name="Дата заказа" Type="date" Nullable="false" />
+          <Property Name="Покупатель" Type="int" Nullable="false" />
+          <Property Name="Состав" Type="int" Nullable="false" />
+          <Property Name="Сумма" Type="money" Nullable="false" />
+          <Property Name="Скидка" Type="real" />
+          <Property Name="Пункт выдачи" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Пользователи_Роли">
+          <End Role="Роли" Type="Self.Роли" Multiplicity="1" />
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Роли">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="Пользователи">
+              <PropertyRef Name="Роль" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Состав_Ассортимент">
+          <End Role="Ассортимент" Type="Self.Ассортимент" Multiplicity="1" />
+          <End Role="Состав" Type="Self.Состав" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ассортимент">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="Состав">
+              <PropertyRef Name="Медикомент" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Талоны_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="Талоны" Type="Self.Талоны" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="Талоны">
+              <PropertyRef Name="Покупатель" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Талоны_ПунктыВыдачи">
+          <End Role="ПунктыВыдачи" Type="Self.ПунктыВыдачи" Multiplicity="1" />
+          <End Role="Талоны" Type="Self.Талоны" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ПунктыВыдачи">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="Талоны">
+              <PropertyRef Name="Пункт выдачи" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Талоны_Состав">
+          <End Role="Состав" Type="Self.Состав" Multiplicity="1" />
+          <End Role="Талоны" Type="Self.Талоны" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Состав">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="Талоны">
+              <PropertyRef Name="Состав" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище VitaFarmModelContainer">
+          <EntitySet Name="Ассортимент" EntityType="Self.Ассортимент" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Пользователи" EntityType="Self.Пользователи" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ПунктыВыдачи" EntityType="Self.ПунктыВыдачи" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Роли" EntityType="Self.Роли" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Состав" EntityType="Self.Состав" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Талоны" EntityType="Self.Талоны" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Пользователи_Роли" Association="Self.FK_Пользователи_Роли">
+            <End Role="Роли" EntitySet="Роли" />
+            <End Role="Пользователи" EntitySet="Пользователи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Состав_Ассортимент" Association="Self.FK_Состав_Ассортимент">
+            <End Role="Ассортимент" EntitySet="Ассортимент" />
+            <End Role="Состав" EntitySet="Состав" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Талоны_Пользователи" Association="Self.FK_Талоны_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Талоны" EntitySet="Талоны" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Талоны_ПунктыВыдачи" Association="Self.FK_Талоны_ПунктыВыдачи">
+            <End Role="ПунктыВыдачи" EntitySet="ПунктыВыдачи" />
+            <End Role="Талоны" EntitySet="Талоны" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Талоны_Состав" Association="Self.FK_Талоны_Состав">
+            <End Role="Состав" EntitySet="Состав" />
+            <End Role="Талоны" EntitySet="Талоны" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VitaFarmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Ассортимент">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Int32" Nullable="false" />
+          <Property Name="Фотография" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Название" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Производитель" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Цена" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Измерение" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Количество" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Скидка" Type="Single" Nullable="false" />
+          <NavigationProperty Name="Состав" Relationship="Self.FK_Состав_Ассортимент" FromRole="Ассортимент" ToRole="Состав" />
+        </EntityType>
+        <EntityType Name="Пользователи">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Int32" Nullable="false" />
+          <Property Name="Фамилия" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Имя" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Отчество" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Телефон" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Роль" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Роли" Relationship="Self.FK_Пользователи_Роли" FromRole="Пользователи" ToRole="Роли" />
+          <NavigationProperty Name="Талоны" Relationship="Self.FK_Талоны_Пользователи" FromRole="Пользователи" ToRole="Талоны" />
+        </EntityType>
+        <EntityType Name="ПунктыВыдачи">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Int32" Nullable="false" />
+          <Property Name="Название" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Город" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Улица" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Здание" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Талоны" Relationship="Self.FK_Талоны_ПунктыВыдачи" FromRole="ПунктыВыдачи" ToRole="Талоны" />
+        </EntityType>
+        <EntityType Name="Роли">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Int32" Nullable="false" />
+          <Property Name="Роль" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_Пользователи_Роли" FromRole="Роли" ToRole="Пользователи" />
+        </EntityType>
+        <EntityType Name="Состав">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Int32" Nullable="false" />
+          <Property Name="Медикомент" Type="Int32" Nullable="false" />
+          <Property Name="Количество" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Цена" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Ассортимент" Relationship="Self.FK_Состав_Ассортимент" FromRole="Состав" ToRole="Ассортимент" />
+          <NavigationProperty Name="Талоны" Relationship="Self.FK_Талоны_Состав" FromRole="Состав" ToRole="Талоны" />
+        </EntityType>
+        <EntityType Name="Талоны">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Int32" Nullable="false" />
+          <Property Name="Дата_заказа" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Покупатель" Type="Int32" Nullable="false" />
+          <Property Name="Состав" Type="Int32" Nullable="false" />
+          <Property Name="Сумма" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Скидка" Type="Single" />
+          <Property Name="Пункт_выдачи" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_Талоны_Пользователи" FromRole="Талоны" ToRole="Пользователи" />
+          <NavigationProperty Name="ПунктыВыдачи" Relationship="Self.FK_Талоны_ПунктыВыдачи" FromRole="Талоны" ToRole="ПунктыВыдачи" />
+          <NavigationProperty Name="Состав1" Relationship="Self.FK_Талоны_Состав" FromRole="Талоны" ToRole="Состав" />
+        </EntityType>
+        <Association Name="FK_Состав_Ассортимент">
+          <End Role="Ассортимент" Type="Self.Ассортимент" Multiplicity="1" />
+          <End Role="Состав" Type="Self.Состав" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ассортимент">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="Состав">
+              <PropertyRef Name="Медикомент" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Пользователи_Роли">
+          <End Role="Роли" Type="Self.Роли" Multiplicity="1" />
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Роли">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="Пользователи">
+              <PropertyRef Name="Роль" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Талоны_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+          <End Role="Талоны" Type="Self.Талоны" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="Талоны">
+              <PropertyRef Name="Покупатель" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Талоны_ПунктыВыдачи">
+          <End Role="ПунктыВыдачи" Type="Self.ПунктыВыдачи" Multiplicity="1" />
+          <End Role="Талоны" Type="Self.Талоны" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ПунктыВыдачи">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="Талоны">
+              <PropertyRef Name="Пункт_выдачи" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Талоны_Состав">
+          <End Role="Состав" Type="Self.Состав" Multiplicity="1" />
+          <End Role="Талоны" Type="Self.Талоны" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Состав">
+              <PropertyRef Name="UID" />
+            </Principal>
+            <Dependent Role="Талоны">
+              <PropertyRef Name="Состав" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VitaFarmEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ассортимент" EntityType="Self.Ассортимент" />
+          <EntitySet Name="Пользователи" EntityType="Self.Пользователи" />
+          <EntitySet Name="ПунктыВыдачи" EntityType="Self.ПунктыВыдачи" />
+          <EntitySet Name="Роли" EntityType="Self.Роли" />
+          <EntitySet Name="Состав" EntityType="Self.Состав" />
+          <EntitySet Name="Талоны" EntityType="Self.Талоны" />
+          <AssociationSet Name="FK_Состав_Ассортимент" Association="Self.FK_Состав_Ассортимент">
+            <End Role="Ассортимент" EntitySet="Ассортимент" />
+            <End Role="Состав" EntitySet="Состав" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Пользователи_Роли" Association="Self.FK_Пользователи_Роли">
+            <End Role="Роли" EntitySet="Роли" />
+            <End Role="Пользователи" EntitySet="Пользователи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Талоны_Пользователи" Association="Self.FK_Талоны_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Талоны" EntitySet="Талоны" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Талоны_ПунктыВыдачи" Association="Self.FK_Талоны_ПунктыВыдачи">
+            <End Role="ПунктыВыдачи" EntitySet="ПунктыВыдачи" />
+            <End Role="Талоны" EntitySet="Талоны" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Талоны_Состав" Association="Self.FK_Талоны_Состав">
+            <End Role="Состав" EntitySet="Состав" />
+            <End Role="Талоны" EntitySet="Талоны" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище VitaFarmModelContainer" CdmEntityContainer="VitaFarmEntities">
+          <EntitySetMapping Name="Ассортимент">
+            <EntityTypeMapping TypeName="VitaFarmModel.Ассортимент">
+              <MappingFragment StoreEntitySet="Ассортимент">
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="Фотография" ColumnName="Фотография" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Описание" ColumnName="Описание" />
+                <ScalarProperty Name="Производитель" ColumnName="Производитель" />
+                <ScalarProperty Name="Цена" ColumnName="Цена" />
+                <ScalarProperty Name="Измерение" ColumnName="Измерение" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="Скидка" ColumnName="Скидка" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Пользователи">
+            <EntityTypeMapping TypeName="VitaFarmModel.Пользователи">
+              <MappingFragment StoreEntitySet="Пользователи">
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+                <ScalarProperty Name="Телефон" ColumnName="Телефон" />
+                <ScalarProperty Name="Роль" ColumnName="Роль" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ПунктыВыдачи">
+            <EntityTypeMapping TypeName="VitaFarmModel.ПунктыВыдачи">
+              <MappingFragment StoreEntitySet="ПунктыВыдачи">
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Город" ColumnName="Город" />
+                <ScalarProperty Name="Улица" ColumnName="Улица" />
+                <ScalarProperty Name="Здание" ColumnName="Здание" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Роли">
+            <EntityTypeMapping TypeName="VitaFarmModel.Роли">
+              <MappingFragment StoreEntitySet="Роли">
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="Роль" ColumnName="Роль" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Состав">
+            <EntityTypeMapping TypeName="VitaFarmModel.Состав">
+              <MappingFragment StoreEntitySet="Состав">
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="Медикомент" ColumnName="Медикомент" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="Цена" ColumnName="Цена" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Талоны">
+            <EntityTypeMapping TypeName="VitaFarmModel.Талоны">
+              <MappingFragment StoreEntitySet="Талоны">
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="Дата_заказа" ColumnName="Дата заказа" />
+                <ScalarProperty Name="Покупатель" ColumnName="Покупатель" />
+                <ScalarProperty Name="Состав" ColumnName="Состав" />
+                <ScalarProperty Name="Сумма" ColumnName="Сумма" />
+                <ScalarProperty Name="Скидка" ColumnName="Скидка" />
+                <ScalarProperty Name="Пункт_выдачи" ColumnName="Пункт выдачи" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
