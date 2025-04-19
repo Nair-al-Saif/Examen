@@ -1,6 +1,6 @@
 ﻿namespace VitaFarm
 {
-    partial class MedList
+    partial class FormMedList
     {
         /// <summary>
         /// Required designer variable.
@@ -30,12 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // MedList
+            // FormMedList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 550);
-            this.Name = "MedList";
+            this.ClientSize = new System.Drawing.Size(700, 389);
+            this.Name = "FormMedList";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MedList";
             this.ResumeLayout(false);
 

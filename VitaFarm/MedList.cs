@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace VitaFarm
 {
-    public partial class MedList : Form
+    public partial class FormMedList : Form
     {
-        public MedList()
+        public FormMedList()
         {
             InitializeComponent();
         }

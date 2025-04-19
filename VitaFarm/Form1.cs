@@ -46,6 +46,9 @@ namespace VitaFarm
                     break;
                 case 2:
                     UC.Message("Добро пожаловать, " + Users[0].Family, "I!");
+                    FormMedList MedList = new FormMedList();
+                    this.Hide();
+                    MedList.Show();
                     break;
                 case 3:
                     UC.Message("Добро пожаловать, " + Users[0].Name, "I");
