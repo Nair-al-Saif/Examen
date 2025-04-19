@@ -196,7 +196,8 @@
             this.Controls.Add(this.LayoutMain);
             this.Name = "FormLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Авторизация";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormLogin_FormClosed);
             this.LayoutMain.ResumeLayout(false);
             this.LayoutMain.PerformLayout();
             this.LayoutLogin.ResumeLayout(false);
