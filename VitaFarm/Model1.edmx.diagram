@@ -4,18 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0383c7cca49646d9b6ec58894d474438" Name="Diagram1">
-        <EntityTypeShape EntityType="VitaFarmModel.Ассортимент" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="VitaFarmModel.Пользователи" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="VitaFarmModel.ПунктыВыдачи" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="VitaFarmModel.Роли" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="VitaFarmModel.Состав" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="VitaFarmModel.Талоны" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="VitaFarmModel.FK_Состав_Ассортимент" ManuallyRouted="false" />
-        <AssociationConnector Association="VitaFarmModel.FK_Пользователи_Роли" ManuallyRouted="false" />
-        <AssociationConnector Association="VitaFarmModel.FK_Талоны_Пользователи" ManuallyRouted="false" />
-        <AssociationConnector Association="VitaFarmModel.FK_Талоны_ПунктыВыдачи" ManuallyRouted="false" />
-        <AssociationConnector Association="VitaFarmModel.FK_Талоны_Состав" ManuallyRouted="false" />
+      <Diagram DiagramId="1bbdbb012bdd4c548ac9bf14e6790f02" Name="Diagram1">
+        <EntityTypeShape EntityType="VitaFarmModel.MedicalList" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="VitaFarmModel.MedicalOrder" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VitaFarmModel.Order" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="VitaFarmModel.OutPlaces" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="VitaFarmModel.Roles" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="VitaFarmModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VitaFarmModel.Users" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <AssociationConnector Association="VitaFarmModel.FK_MedicalOrder_MedicalList" ManuallyRouted="false" />
+        <AssociationConnector Association="VitaFarmModel.FK_Order_MedicalOrder" ManuallyRouted="false" />
+        <AssociationConnector Association="VitaFarmModel.FK_Order_OutPlaces" ManuallyRouted="false" />
+        <AssociationConnector Association="VitaFarmModel.FK_Order_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="VitaFarmModel.FK_Users_Roles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

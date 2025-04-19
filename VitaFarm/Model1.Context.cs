@@ -13,10 +13,10 @@ namespace VitaFarm
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class VitaFarmEntities : DbContext
+    public partial class VitaFarmEntities1 : DbContext
     {
-        public VitaFarmEntities()
-            : base("name=VitaFarmEntities")
+        public VitaFarmEntities1()
+            : base("name=VitaFarmEntities1")
         {
         }
     
@@ -25,11 +25,12 @@ namespace VitaFarm
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Ассортимент> Ассортимент { get; set; }
-        public DbSet<Пользователи> Пользователи { get; set; }
-        public DbSet<ПунктыВыдачи> ПунктыВыдачи { get; set; }
-        public DbSet<Роли> Роли { get; set; }
-        public DbSet<Состав> Состав { get; set; }
-        public DbSet<Талоны> Талоны { get; set; }
+        public DbSet<MedicalList> MedicalList { get; set; }
+        public DbSet<MedicalOrder> MedicalOrder { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OutPlaces> OutPlaces { get; set; }
+        public DbSet<Roles> Roles { get; set; }
+        public DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public DbSet<Users> Users { get; set; }
     }
 }

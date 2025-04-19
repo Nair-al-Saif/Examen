@@ -12,10 +12,21 @@ namespace VitaFarm
 {
     public partial class FormLogin : Form
     {
-       VitaFarmEntities DB = new VitaFarmEntities();
+       VitaFarmEntities1 DB = new VitaFarmEntities1();
         public FormLogin()
         {
             InitializeComponent();
+        }
+
+        private void ButtonOk_Click(object sender, EventArgs e)
+        {
+            if (TextLogin.Text.Count() > 0)
+            {
+                if (TextPassword.Text.Count() > 0)
+                {
+                    for (int i = 0; i < DB.Users.Count())
+                }
+            }
         }
 
         private void LabelRegistration_Click(object sender, EventArgs e)
@@ -23,7 +34,7 @@ namespace VitaFarm
 
         }
 
-        private void ButtonOk_Click(object sender, EventArgs e)
+        private void LabelGuest_Click(object sender, EventArgs e)
         {
 
         }
