@@ -12,9 +12,20 @@ namespace VitaFarm
 {
     public partial class FormLogin : Form
     {
+       VitaFarmEntities DB = new VitaFarmEntities();
         public FormLogin()
         {
             InitializeComponent();
+        }
+
+        private void LabelRegistration_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonOk_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
