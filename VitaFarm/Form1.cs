@@ -39,6 +39,7 @@ namespace VitaFarm
                 UC.Message("Неправильный логин или пароль", "E!");
                 return;
             }
+            FormMedList MedList = new FormMedList();
             switch (Users[0].Role)
             {
                 case 1:
@@ -46,12 +47,13 @@ namespace VitaFarm
                     break;
                 case 2:
                     UC.Message("Добро пожаловать, " + Users[0].Family, "I!");
-                    FormMedList MedList = new FormMedList();
                     this.Hide();
                     MedList.Show();
                     break;
                 case 3:
                     UC.Message("Добро пожаловать, " + Users[0].Name, "I");
+                    this.Hide();
+                    MedList.Show();
                     break;
             }
 
